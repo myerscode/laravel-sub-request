@@ -1,0 +1,54 @@
+{
+  "name": "myerscode/laravel-sub-request",
+  "homepage": "https://github.com/myerscode/laravel-sub-request",
+  "description": "A helper and facade for making internal API sub requests to your application",
+  "keywords": [
+    "laravel",
+    "sub-request",
+    "requests",
+    "sub"
+  ],
+  "type": "package",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "myerscode",
+      "email": "team@myerscode.com",
+      "homepage": "https://myerscode.com"
+    },
+    {
+      "name": "Fred Myerscough",
+      "email": "fred@myerscough.co.uk",
+      "homepage": "https://fredmyerscough.co.uk"
+    }
+  ],
+  "require": {
+    "php": ">=7.0"
+  },
+  "require-dev": {
+    "illuminate/support": "~5.4.0|~5.5.0",
+    "phpunit/phpunit": "^6.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Myerscode\\Laravel\\SubRequest\\": "src"
+    },
+    "files": [
+      "src/global.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Myerscode\\Laravel\\SubRequest\\SubRequestProvider"
+      ]
+    }
+  }
+
+
+}
