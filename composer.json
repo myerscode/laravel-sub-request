@@ -34,7 +34,7 @@
       "Myerscode\\Laravel\\SubRequest\\": "src"
     },
     "files": [
-      "src/global.php"
+      "src/helpers.php"
     ]
   },
   "autoload-dev": {
