@@ -28,6 +28,8 @@ class Dispatcher
     }
 
     /**
+     * Dispatch a sub request to the Laravel application
+     *
      * @param string $method
      * @param string $url
      * @param array $input
@@ -57,5 +59,31 @@ class Dispatcher
         $this->request->replace($original['input']);
 
         return $dispatch;
+    }
+
+    /**
+     * Shortcut for sending a GET sub request
+     *
+     * @param string $url
+     * @param array $input
+     *
+     * @return Response
+     */
+    public function get(string $url, array $input = [])
+    {
+        return $this->dispatch('GET', $url, $input);
+    }
+
+    /**
+     * Shortcut for sending a POST sub request
+     *
+     * @param string $url
+     * @param array $input
+     *
+     * @return Response
+     */
+    public function post(string $url, array $input = [])
+    {
+        return $this->dispatch('POST', $url, $input);
     }
 }
