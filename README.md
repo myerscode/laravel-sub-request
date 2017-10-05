@@ -1,6 +1,10 @@
 # Laravel Sub Request
 a helper and facade for making internal sub requests to your application API
 
+[![Latest Stable Version](https://poser.pugx.org/myerscode/laravel-sub-request/v/stable)](https://packagist.org/packages/myerscode/laravel-sub-request)
+[![Total Downloads](https://poser.pugx.org/myerscode/laravel-sub-request/downloads)](https://packagist.org/packages/myerscode/laravel-sub-request)
+[![License](https://poser.pugx.org/myerscode/laravel-sub-request/license)](https://packagist.org/packages/myerscode/laravel-sub-request)
+
 By sending a sub request within the application, you can simply consume your applications API without having to send seperate, slower HTTP requests.
 
 ## Install
