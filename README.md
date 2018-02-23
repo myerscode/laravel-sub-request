@@ -14,11 +14,14 @@ You can install this package via composer:
 ``` bash
 composer require myerscode/laravel-sub-request
 ```
+
 ## Setup
 
-If using Laravel 5.5 the package will be auto discovered.
+#### Laravel >=5.5
+The package will be auto discovered.
 
-If using Laravel 5.4 add `Myerscode\Laravel\SubRequest\SubRequestProvider` to the `providers` array in `config/app.php`
+#### Laravel 5.4
+Add `Myerscode\Laravel\SubRequest\SubRequestProvider` to the `providers` array in `config/app.php`
 
 ## Usage
 
