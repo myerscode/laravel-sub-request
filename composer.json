@@ -26,8 +26,9 @@
     "php": ">=7.0"
   },
   "require-dev": {
-    "illuminate/support": "~5.4.0|~5.5.0",
-    "phpunit/phpunit": "^6.0"
+    "phpunit/phpunit": "^8.2",
+    "orchestra/testbench": "^3.8",
+    "mockery/mockery": "^1.2"
   },
   "autoload": {
     "psr-4": {
