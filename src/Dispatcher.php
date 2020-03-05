@@ -5,7 +5,6 @@ namespace Myerscode\Laravel\SubRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Route;
 
 class Dispatcher
 {

@@ -14,15 +14,17 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        Route::group([], function () {
-            Route::get('test', function (Request $request) {
-                return subrequest('GET', 'apply-middleware', ['hello' => 'world']);
-            });
-
-            Route::get('apply-middleware', function (Request $request) {
-                return response()->json($request->query->all());
-            })->middleware(TestMiddleware::class);
+        Route::get('/', function (Request $request) {
+            return 'Hello World';
         });
+
+        Route::get('test', function (Request $request) {
+            return subrequest('GET', 'apply-middleware', ['hello' => 'world']);
+        });
+
+        Route::get('apply-middleware', function (Request $request) {
+            return response()->json($request->query->all());
+        })->middleware(TestMiddleware::class);
 
     }
 
