@@ -4,6 +4,7 @@ namespace Tests;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Myerscode\Laravel\SubRequest\Dispatcher;
 use Myerscode\Laravel\SubRequest\HttpVerb;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Tests\Support\TestMiddleware;
@@ -39,4 +40,7 @@ class TestCase extends Orchestra
         return ['Myerscode\Laravel\SubRequest\SubRequestProvider'];
     }
 
+    public function getDispatcher(): Dispatcher {
+        return new Dispatcher($this->app->make('Illuminate\Routing\Router'), $this->app->make('Illuminate\Http\Request'));
+    }
 }
