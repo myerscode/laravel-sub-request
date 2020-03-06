@@ -4,6 +4,7 @@ namespace Tests;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Myerscode\Laravel\SubRequest\HttpVerb;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Tests\Support\TestMiddleware;
 
@@ -26,6 +27,11 @@ class TestCase extends Orchestra
             return response()->json($request->query->all());
         })->middleware(TestMiddleware::class);
 
+        collect(HttpVerb::METHODS)->each(function ($httpVerb) {
+            Route::$httpVerb("/verb/$httpVerb", function (Request $request) use ($httpVerb) {
+                return $httpVerb;
+            });
+        });
     }
 
     protected function getPackageProviders($app)

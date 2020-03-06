@@ -13,13 +13,10 @@ class HelperTest extends TestCase
     {
         return [
             HttpVerb::GET => [HttpVerb::GET],
-            HttpVerb::HEAD => [HttpVerb::HEAD],
             HttpVerb::POST => [HttpVerb::POST],
             HttpVerb::PUT => [HttpVerb::PUT],
             HttpVerb::DELETE => [HttpVerb::DELETE],
-            HttpVerb::CONNECT => [HttpVerb::CONNECT],
             HttpVerb::OPTIONS => [HttpVerb::OPTIONS],
-            HttpVerb::TRACE => [HttpVerb::TRACE],
             HttpVerb::PATCH => [HttpVerb::PATCH],
         ];
     }
