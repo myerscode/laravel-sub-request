@@ -5,7 +5,6 @@ namespace Myerscode\Laravel\SubRequest;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Router;
-use Illuminate\Support\Facades\Route;
 
 class Dispatcher
 {
@@ -71,7 +70,7 @@ class Dispatcher
      */
     public function get(string $url, array $input = [])
     {
-        return $this->dispatch('GET', $url, $input);
+        return $this->dispatch(HttpVerb::GET, $url, $input);
     }
 
     /**
@@ -84,6 +83,58 @@ class Dispatcher
      */
     public function post(string $url, array $input = [])
     {
-        return $this->dispatch('POST', $url, $input);
+        return $this->dispatch(HttpVerb::POST, $url, $input);
+    }
+
+    /**
+     * Shortcut for sending a PUT sub request
+     *
+     * @param string $url
+     * @param array $input
+     *
+     * @return Response
+     */
+    public function put(string $url, array $input = [])
+    {
+        return $this->dispatch(HttpVerb::PUT, $url, $input);
+    }
+
+    /**
+     * Shortcut for sending a DELETE sub request
+     *
+     * @param string $url
+     * @param array $input
+     *
+     * @return Response
+     */
+    public function delete(string $url, array $input = [])
+    {
+        return $this->dispatch(HttpVerb::DELETE, $url, $input);
+    }
+
+    /**
+     * Shortcut for sending a OPTIONS sub request
+     *
+     * @param string $url
+     * @param array $input
+     *
+     * @return Response
+     */
+    public function options(string $url, array $input = [])
+    {
+        return $this->dispatch(HttpVerb::OPTIONS, $url, $input);
+    }
+
+    /**
+     * Shortcut for sending a PATCH sub request
+     *
+     * @param string $url
+     * @param array $input
+     *
+     * @return Response
+     */
+    public function patch(string $url, array $input = [])
+    {
+        return $this->dispatch(HttpVerb::PATCH, $url, $input);
     }
 }

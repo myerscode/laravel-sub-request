@@ -23,11 +23,12 @@
     }
   ],
   "require": {
-    "php": ">=7.0"
+    "php": "^7.4",
+    "laravel/framework": "^7.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^8.2",
-    "orchestra/testbench": "^3.8",
+    "phpunit/phpunit": "^9.0",
+    "orchestra/testbench": "^5.0",
     "mockery/mockery": "^1.2"
   },
   "autoload": {
@@ -49,7 +50,9 @@
         "Myerscode\\Laravel\\SubRequest\\SubRequestProvider"
       ]
     }
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit",
+    "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
   }
-
-
 }
