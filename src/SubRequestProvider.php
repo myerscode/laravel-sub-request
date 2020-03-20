@@ -39,7 +39,6 @@ class SubRequestProvider extends ServiceProvider
     {
         return [
             Dispatcher::class,
-            'SubRequest'
         ];
     }
 }
