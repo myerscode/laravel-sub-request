@@ -2,6 +2,7 @@
 
 namespace Tests;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 use Myerscode\Laravel\SubRequest\Dispatcher;
 use Myerscode\Laravel\SubRequest\HttpVerb;
@@ -39,4 +40,23 @@ class HelperTest extends TestCase
 
         $this->assertEquals($verb, subrequest($verb, '/', []));
     }
+
+    public function testHelperAcceptsCollection()
+    {
+        $this->assertInstanceOf(JsonResponse::class, subrequest('POST', '/', collect(['hello' => 'world'])));
+    }
+
+    public function testHelperThrowsExceptionWithInvalidVerb()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        subrequest('FOOBAR', '/', []);
+    }
+
+    public function testHelperThrowsExceptionWithInvalidData()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage('$input must be a an instance of array or \Illuminate\Support\Collection');
+        subrequest('POST', '/', 'foo=bar');
+    }
+
 }

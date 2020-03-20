@@ -20,6 +20,10 @@ class TestCase extends Orchestra
             return 'Hello World';
         });
 
+        Route::post('/', function (Request $request) {
+            return $request->request->all();
+        });
+
         Route::get('test', function (Request $request) {
             return subrequest('GET', 'apply-middleware', ['hello' => 'world']);
         });
