@@ -23,7 +23,7 @@
     }
   ],
   "require": {
-    "php": "^7.3|^8.0"
+    "php": "^7.3"
   },
   "require-dev": {
     "laravel/framework": "^8.0",
@@ -52,7 +52,7 @@
     }
   },
   "scripts": {
-    "test": "vendor/bin/phpunit",
-    "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+    "tests": "vendor/bin/phpunit --testdox --no-coverage --colors=always",
+    "test-coverage": "XDEBUG_MODE=coverage vendor/bin/phpunit --testdox --colors=always"
   }
 }
