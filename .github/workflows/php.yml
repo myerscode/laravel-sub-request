@@ -2,9 +2,9 @@ name: Tests
 
 on:
   push:
-    branches: [ 8.x ]
+    branches: [ main, develop ]
   pull_request:
-    branches: [ 8.x ]
+    branches: [ main, develop ]
 
 jobs:
   run:
@@ -12,7 +12,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        php-versions: ['7.3', '7.4']
+        php-versions: ['7.3', '7.4', '8.0', '8.1']
 
     name: PHP ${{ matrix.php-versions }} - ${{ matrix.os }}
     steps:
