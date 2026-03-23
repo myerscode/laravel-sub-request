@@ -8,6 +8,7 @@ use Illuminate\Http\Response;
 use Iterator;
 use Myerscode\Laravel\SubRequest\Dispatcher;
 use Myerscode\Laravel\SubRequest\HttpVerb;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 final class DispatcherTest extends TestCase
 {
@@ -22,11 +23,7 @@ final class DispatcherTest extends TestCase
         yield HttpVerb::PATCH => [HttpVerb::PATCH];
     }
 
-    /**
-     * @param $verb string
-     *
-     * @dataProvider httpVerbProvider
-     */
+    #[DataProvider('httpVerbProvider')]
     public function testShortcutCallsOnlyAcceptValidVerbs(string $verb): void
     {
         $this->mock(Dispatcher::class)

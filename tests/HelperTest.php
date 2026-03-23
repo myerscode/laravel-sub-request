@@ -10,6 +10,7 @@ use InvalidArgumentException;
 use Iterator;
 use Myerscode\Laravel\SubRequest\Dispatcher;
 use Myerscode\Laravel\SubRequest\HttpVerb;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 final class HelperTest extends TestCase
 {
@@ -29,11 +30,7 @@ final class HelperTest extends TestCase
         $this->assertInstanceOf(Response::class, subrequest(HttpVerb::GET, '/', []));
     }
 
-    /**
-     * @param $verb string
-     *
-     * @dataProvider httpVerbProvider
-     */
+    #[DataProvider('httpVerbProvider')]
     public function testHelperAcceptsAllHttpVerbs(string $verb): void
     {
         $this->mock(Dispatcher::class)
