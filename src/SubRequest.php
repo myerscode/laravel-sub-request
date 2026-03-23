@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Myerscode\Laravel\SubRequest;
 
 use Illuminate\Support\Facades\Facade;
-
 use Symfony\Component\HttpFoundation\Response;
 
 /**
