@@ -15,21 +15,20 @@ use Tests\Support\TestMiddleware;
 
 class TestCase extends Orchestra
 {
-
     protected function setUp(): void
     {
         parent::setUp();
 
-        Route::get('/', fn(Request $request) => 'Hello World');
+        Route::get('/', fn (Request $request) => 'Hello World');
 
-        Route::post('/', fn(Request $request) => $request->request->all());
+        Route::post('/', fn (Request $request) => $request->request->all());
 
-        Route::get('test', fn(Request $request) => subrequest('GET', 'apply-middleware', ['hello' => 'world']));
+        Route::get('test', fn (Request $request) => subrequest('GET', 'apply-middleware', ['hello' => 'world']));
 
-        Route::get('apply-middleware', fn(Request $request) => response()->json($request->query->all()))->middleware(TestMiddleware::class);
+        Route::get('apply-middleware', fn (Request $request) => response()->json($request->query->all()))->middleware(TestMiddleware::class);
 
         collect(HttpVerb::METHODS)->each(function (string $httpVerb): void {
-            Route::$httpVerb('/verb/' . $httpVerb, fn(Request $request) => $httpVerb);
+            Route::$httpVerb('/verb/' . $httpVerb, fn (Request $request) => $httpVerb);
         });
     }
 
@@ -38,7 +37,8 @@ class TestCase extends Orchestra
         return [SubRequestProvider::class];
     }
 
-    public function getDispatcher(): Dispatcher {
+    public function getDispatcher(): Dispatcher
+    {
         return new Dispatcher($this->app->make(Router::class), $this->app->make(Request::class));
     }
 }

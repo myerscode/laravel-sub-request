@@ -7,14 +7,14 @@ use Myerscode\Laravel\SubRequest\HttpVerb;
 use Myerscode\Laravel\SubRequest\SubRequest;
 use Symfony\Component\HttpFoundation\Response;
 
-if (!function_exists('subrequest')) {
+if (! function_exists('subrequest')) {
 
     /**
-     * @param array<mixed>|Collection<string, mixed> $input
+     * @param  array<mixed>|Collection<string, mixed>  $input
      */
     function subrequest(string $method, string $route, array|Collection $input = []): Response
     {
-        if (!in_array($method, HttpVerb::METHODS, true)) {
+        if (! in_array($method, HttpVerb::METHODS, true)) {
             throw new InvalidArgumentException('$method must be valid http verb (' . implode(', ', HttpVerb::METHODS) . ')');
         }
 

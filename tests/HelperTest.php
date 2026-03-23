@@ -15,7 +15,6 @@ use TypeError;
 
 final class HelperTest extends TestCase
 {
-
     public static function httpVerbProvider(): Iterator
     {
         yield HttpVerb::GET => [HttpVerb::GET];
@@ -26,13 +25,13 @@ final class HelperTest extends TestCase
         yield HttpVerb::PATCH => [HttpVerb::PATCH];
     }
 
-    public function testHelperReturnsResponse(): void
+    public function test_helper_returns_response(): void
     {
         $this->assertInstanceOf(Response::class, subrequest(HttpVerb::GET, '/', []));
     }
 
     #[DataProvider('httpVerbProvider')]
-    public function testHelperAcceptsAllHttpVerbs(string $verb): void
+    public function test_helper_accepts_all_http_verbs(string $verb): void
     {
         $response = new Response($verb);
 
@@ -43,21 +42,20 @@ final class HelperTest extends TestCase
         $this->assertEquals($verb, subrequest($verb, '/', [])->getContent());
     }
 
-    public function testHelperAcceptsCollection(): void
+    public function test_helper_accepts_collection(): void
     {
         $this->assertInstanceOf(JsonResponse::class, subrequest('POST', '/', collect(['hello' => 'world'])));
     }
 
-    public function testHelperThrowsExceptionWithInvalidVerb(): void
+    public function test_helper_throws_exception_with_invalid_verb(): void
     {
         $this->expectException(InvalidArgumentException::class);
         subrequest('FOOBAR', '/', []);
     }
 
-    public function testHelperThrowsExceptionWithInvalidData(): void
+    public function test_helper_throws_exception_with_invalid_data(): void
     {
         $this->expectException(TypeError::class);
         subrequest('POST', '/', 'foo=bar');
     }
-
 }

@@ -10,12 +10,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Dispatcher
 {
-    public function __construct(private readonly Router $router, private readonly Request $request)
-    {
-    }
+    public function __construct(private readonly Router $router, private readonly Request $request) {}
 
     /**
      * Dispatch a sub request to the Laravel application.
+     *
+     * @param  array<string, mixed>  $input
      */
     public function dispatch(string $method, string $url, array $input = []): Response
     {
@@ -44,6 +44,8 @@ class Dispatcher
 
     /**
      * Shortcut for sending a GET sub request.
+     *
+     * @param  array<string, mixed>  $input
      */
     public function get(string $url, array $input = []): Response
     {
@@ -52,6 +54,8 @@ class Dispatcher
 
     /**
      * Shortcut for sending a POST sub request.
+     *
+     * @param  array<string, mixed>  $input
      */
     public function post(string $url, array $input = []): Response
     {
@@ -60,6 +64,8 @@ class Dispatcher
 
     /**
      * Shortcut for sending a PUT sub request.
+     *
+     * @param  array<string, mixed>  $input
      */
     public function put(string $url, array $input = []): Response
     {
@@ -68,6 +74,8 @@ class Dispatcher
 
     /**
      * Shortcut for sending a DELETE sub request.
+     *
+     * @param  array<string, mixed>  $input
      */
     public function delete(string $url, array $input = []): Response
     {
@@ -76,6 +84,8 @@ class Dispatcher
 
     /**
      * Shortcut for sending an OPTIONS sub request.
+     *
+     * @param  array<string, mixed>  $input
      */
     public function options(string $url, array $input = []): Response
     {
@@ -84,6 +94,8 @@ class Dispatcher
 
     /**
      * Shortcut for sending a PATCH sub request.
+     *
+     * @param  array<string, mixed>  $input
      */
     public function patch(string $url, array $input = []): Response
     {

@@ -6,8 +6,7 @@ namespace Tests;
 
 final class RespondTest extends TestCase
 {
-
-    public function testMiddlewareIsStillApplied(): void
+    public function test_middleware_is_still_applied(): void
     {
 
         $testResponse = $this->get('test');
@@ -19,5 +18,4 @@ final class RespondTest extends TestCase
             json_encode(['message' => 'Access denied'])
         );
     }
-
 }
