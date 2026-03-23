@@ -1,20 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Myerscode\Laravel\SubRequest;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Myerscode\Laravel\SubRequest\Dispatcher
+ * @see Dispatcher
  */
 class SubRequest extends Facade
 {
-    /**
-     * Get the registered name of the component.
-     *
-     * @return string
-     */
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return 'SubRequest';
     }

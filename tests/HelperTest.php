@@ -11,6 +11,7 @@ use Iterator;
 use Myerscode\Laravel\SubRequest\Dispatcher;
 use Myerscode\Laravel\SubRequest\HttpVerb;
 use PHPUnit\Framework\Attributes\DataProvider;
+use TypeError;
 
 final class HelperTest extends TestCase
 {
@@ -33,11 +34,13 @@ final class HelperTest extends TestCase
     #[DataProvider('httpVerbProvider')]
     public function testHelperAcceptsAllHttpVerbs(string $verb): void
     {
+        $response = new Response($verb);
+
         $this->mock(Dispatcher::class)
             ->shouldReceive('dispatch')
-            ->andReturn($verb);
+            ->andReturn($response);
 
-        $this->assertEquals($verb, subrequest($verb, '/', []));
+        $this->assertEquals($verb, subrequest($verb, '/', [])->getContent());
     }
 
     public function testHelperAcceptsCollection(): void
@@ -53,8 +56,7 @@ final class HelperTest extends TestCase
 
     public function testHelperThrowsExceptionWithInvalidData(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('$input must be a an instance of array or \Illuminate\Support\Collection');
+        $this->expectException(TypeError::class);
         subrequest('POST', '/', 'foo=bar');
     }
 

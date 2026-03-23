@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Myerscode\Laravel\SubRequest;
 
 use Illuminate\Http\Request;
@@ -9,17 +11,6 @@ use Override;
 
 class SubRequestProvider extends ServiceProvider
 {
-    /**
-     * Bootstrap the application services.
-     */
-    public function boot(): void
-    {
-        //
-    }
-
-    /**
-     * Register the application services.
-     */
     #[Override]
     public function register(): void
     {
@@ -29,12 +20,10 @@ class SubRequestProvider extends ServiceProvider
     }
 
     /**
-     * Get the services provided by the provider.
-     *
-     * @return array
+     * @return array<int, string>
      */
     #[Override]
-    public function provides()
+    public function provides(): array
     {
         return [
             Dispatcher::class,
