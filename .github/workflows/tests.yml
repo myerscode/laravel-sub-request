@@ -1,0 +1,39 @@
+name: Tests
+
+on:
+  push:
+    branches: [main, master, feature/**]
+  pull_request:
+    branches: [main, master, feature/**]
+
+jobs:
+  tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        php: ['8.4', '8.5']
+
+    name: PHP ${{ matrix.php }} - ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Run lint
+        run: vendor/bin/pint --test
+
+      - name: Run static analysis
+        run: vendor/bin/phpstan analyse
+
+      - name: Run tests
+        run: vendor/bin/phpunit --testdox --no-coverage --colors=always
