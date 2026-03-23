@@ -9,29 +9,13 @@ use Illuminate\Routing\Router;
 class Dispatcher
 {
 
-    /**
-     * @var Router
-     */
-    private $router;
-
-    /**
-     * @var Request
-     */
-    private $request;
-
-    public function __construct(Router $router, Request $request)
+    public function __construct(private readonly Router $router, private readonly Request $request)
     {
-        $this->router = $router;
-
-        $this->request = $request;
     }
 
     /**
      * Dispatch a sub request to the Laravel application
      *
-     * @param string $method
-     * @param string $url
-     * @param array $input
      *
      * @return Response
      */
@@ -63,8 +47,6 @@ class Dispatcher
     /**
      * Shortcut for sending a GET sub request
      *
-     * @param string $url
-     * @param array $input
      *
      * @return Response
      */
@@ -76,8 +58,6 @@ class Dispatcher
     /**
      * Shortcut for sending a POST sub request
      *
-     * @param string $url
-     * @param array $input
      *
      * @return Response
      */
@@ -89,8 +69,6 @@ class Dispatcher
     /**
      * Shortcut for sending a PUT sub request
      *
-     * @param string $url
-     * @param array $input
      *
      * @return Response
      */
@@ -102,8 +80,6 @@ class Dispatcher
     /**
      * Shortcut for sending a DELETE sub request
      *
-     * @param string $url
-     * @param array $input
      *
      * @return Response
      */
@@ -115,8 +91,6 @@ class Dispatcher
     /**
      * Shortcut for sending a OPTIONS sub request
      *
-     * @param string $url
-     * @param array $input
      *
      * @return Response
      */
@@ -128,8 +102,6 @@ class Dispatcher
     /**
      * Shortcut for sending a PATCH sub request
      *
-     * @param string $url
-     * @param array $input
      *
      * @return Response
      */

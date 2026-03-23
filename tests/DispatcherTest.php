@@ -1,24 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Illuminate\Http\Response;
+use Iterator;
 use Myerscode\Laravel\SubRequest\Dispatcher;
 use Myerscode\Laravel\SubRequest\HttpVerb;
 
-class DispatcherTest extends TestCase
+final class DispatcherTest extends TestCase
 {
 
-    public function httpVerbProvider()
+    public static function httpVerbProvider(): Iterator
     {
-        return [
-            HttpVerb::GET => [HttpVerb::GET],
-            HttpVerb::POST => [HttpVerb::POST],
-            HttpVerb::PUT => [HttpVerb::PUT],
-            HttpVerb::DELETE => [HttpVerb::DELETE],
-            HttpVerb::OPTIONS => [HttpVerb::OPTIONS],
-            HttpVerb::PATCH => [HttpVerb::PATCH],
-        ];
+        yield HttpVerb::GET => [HttpVerb::GET];
+        yield HttpVerb::POST => [HttpVerb::POST];
+        yield HttpVerb::PUT => [HttpVerb::PUT];
+        yield HttpVerb::DELETE => [HttpVerb::DELETE];
+        yield HttpVerb::OPTIONS => [HttpVerb::OPTIONS];
+        yield HttpVerb::PATCH => [HttpVerb::PATCH];
     }
 
     /**
@@ -26,12 +27,12 @@ class DispatcherTest extends TestCase
      *
      * @dataProvider httpVerbProvider
      */
-    public function testShortcutCallsOnlyAcceptValidVerbs(string $verb)
+    public function testShortcutCallsOnlyAcceptValidVerbs(string $verb): void
     {
         $this->mock(Dispatcher::class)
             ->shouldReceive('dispatch')
             ->andReturn($verb);
 
-        $this->assertInstanceOf(Response::class, $this->getDispatcher()->$verb("/verb/$verb", []));
+        $this->assertInstanceOf(Response::class, $this->getDispatcher()->$verb('/verb/' . $verb, []));
     }
 }

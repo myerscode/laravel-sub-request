@@ -1,19 +1,21 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
-class RespondTest extends TestCase
+final class RespondTest extends TestCase
 {
 
-    public function testMiddlewareIsStillApplied()
+    public function testMiddlewareIsStillApplied(): void
     {
 
-        $response = $this->get('test');
+        $testResponse = $this->get('test');
 
-        $this->assertEquals($response->getStatusCode(), 403);
+        $this->assertEquals(403, $testResponse->getStatusCode());
 
         $this->assertEquals(
-            json_encode(json_decode($response->getContent())),
+            json_encode(json_decode($testResponse->getContent())),
             json_encode(['message' => 'Access denied'])
         );
     }

@@ -2,30 +2,28 @@
 
 namespace Myerscode\Laravel\SubRequest;
 
+use Illuminate\Http\Request;
+use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
+use Override;
 
 class SubRequestProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         //
     }
 
     /**
      * Register the application services.
-     *
-     * @return void
      */
-    public function register()
+    #[Override]
+    public function register(): void
     {
-        $this->app->bind(Dispatcher::class, function ($app) {
-            return new Dispatcher($app->make('Illuminate\Routing\Router'), $app->make('Illuminate\Http\Request'));
-        });
+        $this->app->bind(Dispatcher::class, fn($app) => new Dispatcher($app->make(Router::class), $app->make(Request::class)));
 
         $this->app->alias(Dispatcher::class, 'SubRequest');
     }
@@ -35,6 +33,7 @@ class SubRequestProvider extends ServiceProvider
      *
      * @return array
      */
+    #[Override]
     public function provides()
     {
         return [

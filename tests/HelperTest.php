@@ -1,28 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use InvalidArgumentException;
+use Iterator;
 use Myerscode\Laravel\SubRequest\Dispatcher;
 use Myerscode\Laravel\SubRequest\HttpVerb;
 
-class HelperTest extends TestCase
+final class HelperTest extends TestCase
 {
 
-    public function httpVerbProvider()
+    public static function httpVerbProvider(): Iterator
     {
-        return [
-            HttpVerb::GET => [HttpVerb::GET],
-            HttpVerb::POST => [HttpVerb::POST],
-            HttpVerb::PUT => [HttpVerb::PUT],
-            HttpVerb::DELETE => [HttpVerb::DELETE],
-            HttpVerb::OPTIONS => [HttpVerb::OPTIONS],
-            HttpVerb::PATCH => [HttpVerb::PATCH],
-        ];
+        yield HttpVerb::GET => [HttpVerb::GET];
+        yield HttpVerb::POST => [HttpVerb::POST];
+        yield HttpVerb::PUT => [HttpVerb::PUT];
+        yield HttpVerb::DELETE => [HttpVerb::DELETE];
+        yield HttpVerb::OPTIONS => [HttpVerb::OPTIONS];
+        yield HttpVerb::PATCH => [HttpVerb::PATCH];
     }
 
-    public function testHelperReturnsResponse()
+    public function testHelperReturnsResponse(): void
     {
         $this->assertInstanceOf(Response::class, subrequest(HttpVerb::GET, '/', []));
     }
@@ -32,7 +34,7 @@ class HelperTest extends TestCase
      *
      * @dataProvider httpVerbProvider
      */
-    public function testHelperAcceptsAllHttpVerbs(string $verb)
+    public function testHelperAcceptsAllHttpVerbs(string $verb): void
     {
         $this->mock(Dispatcher::class)
             ->shouldReceive('dispatch')
@@ -41,20 +43,20 @@ class HelperTest extends TestCase
         $this->assertEquals($verb, subrequest($verb, '/', []));
     }
 
-    public function testHelperAcceptsCollection()
+    public function testHelperAcceptsCollection(): void
     {
         $this->assertInstanceOf(JsonResponse::class, subrequest('POST', '/', collect(['hello' => 'world'])));
     }
 
-    public function testHelperThrowsExceptionWithInvalidVerb()
+    public function testHelperThrowsExceptionWithInvalidVerb(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         subrequest('FOOBAR', '/', []);
     }
 
-    public function testHelperThrowsExceptionWithInvalidData()
+    public function testHelperThrowsExceptionWithInvalidData(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('$input must be a an instance of array or \Illuminate\Support\Collection');
         subrequest('POST', '/', 'foo=bar');
     }

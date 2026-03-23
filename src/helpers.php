@@ -15,8 +15,8 @@ if (!function_exists('subrequest')) {
      */
     function subrequest(string $method, $route, $input = [])
     {
-        if (!in_array($method, HttpVerb::METHODS)) {
-            throw new InvalidArgumentException('$method must be valid http verb (' . implode(HttpVerb::METHODS) . ')');
+        if (!in_array($method, HttpVerb::METHODS, true)) {
+            throw new InvalidArgumentException('$method must be valid http verb (' . implode('', HttpVerb::METHODS) . ')');
         }
 
         if ($input instanceof Collection) {
