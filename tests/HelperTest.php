@@ -1,62 +1,61 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use InvalidArgumentException;
+use Iterator;
 use Myerscode\Laravel\SubRequest\Dispatcher;
 use Myerscode\Laravel\SubRequest\HttpVerb;
+use PHPUnit\Framework\Attributes\DataProvider;
+use TypeError;
 
-class HelperTest extends TestCase
+final class HelperTest extends TestCase
 {
-
-    public function httpVerbProvider()
+    public static function httpVerbProvider(): Iterator
     {
-        return [
-            HttpVerb::GET => [HttpVerb::GET],
-            HttpVerb::POST => [HttpVerb::POST],
-            HttpVerb::PUT => [HttpVerb::PUT],
-            HttpVerb::DELETE => [HttpVerb::DELETE],
-            HttpVerb::OPTIONS => [HttpVerb::OPTIONS],
-            HttpVerb::PATCH => [HttpVerb::PATCH],
-        ];
+        yield HttpVerb::GET => [HttpVerb::GET];
+        yield HttpVerb::POST => [HttpVerb::POST];
+        yield HttpVerb::PUT => [HttpVerb::PUT];
+        yield HttpVerb::DELETE => [HttpVerb::DELETE];
+        yield HttpVerb::OPTIONS => [HttpVerb::OPTIONS];
+        yield HttpVerb::PATCH => [HttpVerb::PATCH];
     }
 
-    public function testHelperReturnsResponse()
+    public function test_helper_returns_response(): void
     {
         $this->assertInstanceOf(Response::class, subrequest(HttpVerb::GET, '/', []));
     }
 
-    /**
-     * @param $verb string
-     *
-     * @dataProvider httpVerbProvider
-     */
-    public function testHelperAcceptsAllHttpVerbs(string $verb)
+    #[DataProvider('httpVerbProvider')]
+    public function test_helper_accepts_all_http_verbs(string $verb): void
     {
+        $response = new Response($verb);
+
         $this->mock(Dispatcher::class)
             ->shouldReceive('dispatch')
-            ->andReturn($verb);
+            ->andReturn($response);
 
-        $this->assertEquals($verb, subrequest($verb, '/', []));
+        $this->assertEquals($verb, subrequest($verb, '/', [])->getContent());
     }
 
-    public function testHelperAcceptsCollection()
+    public function test_helper_accepts_collection(): void
     {
         $this->assertInstanceOf(JsonResponse::class, subrequest('POST', '/', collect(['hello' => 'world'])));
     }
 
-    public function testHelperThrowsExceptionWithInvalidVerb()
+    public function test_helper_throws_exception_with_invalid_verb(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
         subrequest('FOOBAR', '/', []);
     }
 
-    public function testHelperThrowsExceptionWithInvalidData()
+    public function test_helper_throws_exception_with_invalid_data(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
-        $this->expectExceptionMessage('$input must be a an instance of array or \Illuminate\Support\Collection');
+        $this->expectException(TypeError::class);
         subrequest('POST', '/', 'foo=bar');
     }
-
 }

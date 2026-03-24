@@ -1,37 +1,34 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Illuminate\Http\Response;
+use Iterator;
 use Myerscode\Laravel\SubRequest\Dispatcher;
 use Myerscode\Laravel\SubRequest\HttpVerb;
+use PHPUnit\Framework\Attributes\DataProvider;
 
-class DispatcherTest extends TestCase
+final class DispatcherTest extends TestCase
 {
-
-    public function httpVerbProvider()
+    public static function httpVerbProvider(): Iterator
     {
-        return [
-            HttpVerb::GET => [HttpVerb::GET],
-            HttpVerb::POST => [HttpVerb::POST],
-            HttpVerb::PUT => [HttpVerb::PUT],
-            HttpVerb::DELETE => [HttpVerb::DELETE],
-            HttpVerb::OPTIONS => [HttpVerb::OPTIONS],
-            HttpVerb::PATCH => [HttpVerb::PATCH],
-        ];
+        yield HttpVerb::GET => [HttpVerb::GET];
+        yield HttpVerb::POST => [HttpVerb::POST];
+        yield HttpVerb::PUT => [HttpVerb::PUT];
+        yield HttpVerb::DELETE => [HttpVerb::DELETE];
+        yield HttpVerb::OPTIONS => [HttpVerb::OPTIONS];
+        yield HttpVerb::PATCH => [HttpVerb::PATCH];
     }
 
-    /**
-     * @param $verb string
-     *
-     * @dataProvider httpVerbProvider
-     */
-    public function testShortcutCallsOnlyAcceptValidVerbs(string $verb)
+    #[DataProvider('httpVerbProvider')]
+    public function test_shortcut_calls_only_accept_valid_verbs(string $verb): void
     {
         $this->mock(Dispatcher::class)
             ->shouldReceive('dispatch')
             ->andReturn($verb);
 
-        $this->assertInstanceOf(Response::class, $this->getDispatcher()->$verb("/verb/$verb", []));
+        $this->assertInstanceOf(Response::class, $this->getDispatcher()->$verb('/verb/' . $verb, []));
     }
 }

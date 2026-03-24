@@ -1,41 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Myerscode\Laravel\SubRequest;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Routing\Router;
+use Symfony\Component\HttpFoundation\Response;
 
 class Dispatcher
 {
+    public function __construct(private readonly Router $router, private readonly Request $request) {}
 
     /**
-     * @var Router
-     */
-    private $router;
-
-    /**
-     * @var Request
-     */
-    private $request;
-
-    public function __construct(Router $router, Request $request)
-    {
-        $this->router = $router;
-
-        $this->request = $request;
-    }
-
-    /**
-     * Dispatch a sub request to the Laravel application
+     * Dispatch a sub request to the Laravel application.
      *
-     * @param string $method
-     * @param string $url
-     * @param array $input
-     *
-     * @return Response
+     * @param  array<string, mixed>  $input
      */
-    public function dispatch(string $method, string $url, array $input = [])
+    public function dispatch(string $method, string $url, array $input = []): Response
     {
         $method = strtoupper($method);
 
@@ -61,79 +43,61 @@ class Dispatcher
     }
 
     /**
-     * Shortcut for sending a GET sub request
+     * Shortcut for sending a GET sub request.
      *
-     * @param string $url
-     * @param array $input
-     *
-     * @return Response
+     * @param  array<string, mixed>  $input
      */
-    public function get(string $url, array $input = [])
+    public function get(string $url, array $input = []): Response
     {
         return $this->dispatch(HttpVerb::GET, $url, $input);
     }
 
     /**
-     * Shortcut for sending a POST sub request
+     * Shortcut for sending a POST sub request.
      *
-     * @param string $url
-     * @param array $input
-     *
-     * @return Response
+     * @param  array<string, mixed>  $input
      */
-    public function post(string $url, array $input = [])
+    public function post(string $url, array $input = []): Response
     {
         return $this->dispatch(HttpVerb::POST, $url, $input);
     }
 
     /**
-     * Shortcut for sending a PUT sub request
+     * Shortcut for sending a PUT sub request.
      *
-     * @param string $url
-     * @param array $input
-     *
-     * @return Response
+     * @param  array<string, mixed>  $input
      */
-    public function put(string $url, array $input = [])
+    public function put(string $url, array $input = []): Response
     {
         return $this->dispatch(HttpVerb::PUT, $url, $input);
     }
 
     /**
-     * Shortcut for sending a DELETE sub request
+     * Shortcut for sending a DELETE sub request.
      *
-     * @param string $url
-     * @param array $input
-     *
-     * @return Response
+     * @param  array<string, mixed>  $input
      */
-    public function delete(string $url, array $input = [])
+    public function delete(string $url, array $input = []): Response
     {
         return $this->dispatch(HttpVerb::DELETE, $url, $input);
     }
 
     /**
-     * Shortcut for sending a OPTIONS sub request
+     * Shortcut for sending an OPTIONS sub request.
      *
-     * @param string $url
-     * @param array $input
-     *
-     * @return Response
+     * @param  array<string, mixed>  $input
      */
-    public function options(string $url, array $input = [])
+    public function options(string $url, array $input = []): Response
     {
         return $this->dispatch(HttpVerb::OPTIONS, $url, $input);
     }
 
     /**
-     * Shortcut for sending a PATCH sub request
+     * Shortcut for sending a PATCH sub request.
      *
-     * @param string $url
-     * @param array $input
-     *
-     * @return Response
+     * @param  array<string, mixed>  $input
      */
-    public function patch(string $url, array $input = [])
+    public function patch(string $url, array $input = []): Response
     {
         return $this->dispatch(HttpVerb::PATCH, $url, $input);
     }

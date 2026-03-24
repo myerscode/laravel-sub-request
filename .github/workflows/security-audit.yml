@@ -1,0 +1,31 @@
+name: Security Audit
+
+on:
+  push:
+    branches: [main, master, feature/**]
+  pull_request:
+    branches: [main, master, feature/**]
+  schedule:
+    - cron: '0 0 * * 1'
+
+jobs:
+  security-audit:
+    runs-on: ubuntu-latest
+
+    name: Security Audit
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.4'
+          coverage: none
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-interaction
+
+      - name: Run security audit
+        run: composer audit

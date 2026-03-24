@@ -1,50 +1,44 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tests;
 
 use Illuminate\Http\Request;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Myerscode\Laravel\SubRequest\Dispatcher;
 use Myerscode\Laravel\SubRequest\HttpVerb;
+use Myerscode\Laravel\SubRequest\SubRequestProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Tests\Support\TestMiddleware;
 
 class TestCase extends Orchestra
 {
-
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
 
-        Route::get('/', function (Request $request) {
-            return 'Hello World';
-        });
+        Route::get('/', fn (Request $request) => 'Hello World');
 
-        Route::post('/', function (Request $request) {
-            return $request->request->all();
-        });
+        Route::post('/', fn (Request $request) => $request->request->all());
 
-        Route::get('test', function (Request $request) {
-            return subrequest('GET', 'apply-middleware', ['hello' => 'world']);
-        });
+        Route::get('test', fn (Request $request) => subrequest('GET', 'apply-middleware', ['hello' => 'world']));
 
-        Route::get('apply-middleware', function (Request $request) {
-            return response()->json($request->query->all());
-        })->middleware(TestMiddleware::class);
+        Route::get('apply-middleware', fn (Request $request) => response()->json($request->query->all()))->middleware(TestMiddleware::class);
 
-        collect(HttpVerb::METHODS)->each(function ($httpVerb) {
-            Route::$httpVerb("/verb/$httpVerb", function (Request $request) use ($httpVerb) {
-                return $httpVerb;
-            });
+        collect(HttpVerb::METHODS)->each(function (string $httpVerb): void {
+            Route::$httpVerb('/verb/' . $httpVerb, fn (Request $request) => $httpVerb);
         });
     }
 
     protected function getPackageProviders($app)
     {
-        return ['Myerscode\Laravel\SubRequest\SubRequestProvider'];
+        return [SubRequestProvider::class];
     }
 
-    public function getDispatcher(): Dispatcher {
-        return new Dispatcher($this->app->make('Illuminate\Routing\Router'), $this->app->make('Illuminate\Http\Request'));
+    public function getDispatcher(): Dispatcher
+    {
+        return new Dispatcher($this->app->make(Router::class), $this->app->make(Request::class));
     }
 }

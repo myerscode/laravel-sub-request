@@ -1,20 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Myerscode\Laravel\SubRequest;
 
 use Illuminate\Support\Facades\Facade;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @see \Myerscode\Laravel\SubRequest\Dispatcher
+ * @method static Response dispatch(string $method, string $url, array<string, mixed> $input = [])
+ *
+ * @see Dispatcher
  */
 class SubRequest extends Facade
 {
-    /**
-     * Get the registered name of the component.
-     *
-     * @return string
-     */
-    protected static function getFacadeAccessor()
+    protected static function getFacadeAccessor(): string
     {
         return 'SubRequest';
     }
