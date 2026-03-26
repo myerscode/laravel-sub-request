@@ -13,7 +13,7 @@ By sending a sub request within the application, you can consume your applicatio
 
 ## Requirements
 
-- PHP 8.3+
+- PHP 8.5+
 - Laravel 13.x
 
 ## Install
