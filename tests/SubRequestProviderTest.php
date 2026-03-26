@@ -9,17 +9,17 @@ use Myerscode\Laravel\SubRequest\SubRequestProvider;
 
 final class SubRequestProviderTest extends TestCase
 {
-    public function test_dispatcher_is_aliased_as_sub_request(): void
+    public function testDispatcherIsAliasedAsSubRequest(): void
     {
         $this->assertInstanceOf(Dispatcher::class, $this->app->make('SubRequest'));
     }
 
-    public function test_dispatcher_is_bound_in_container(): void
+    public function testDispatcherIsBoundInContainer(): void
     {
         $this->assertInstanceOf(Dispatcher::class, $this->app->make(Dispatcher::class));
     }
 
-    public function test_provides_returns_dispatcher_class(): void
+    public function testProvidesReturnsDispatcherClass(): void
     {
         $subRequestProvider = new SubRequestProvider($this->app);
 

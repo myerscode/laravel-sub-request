@@ -26,7 +26,7 @@ final class HelperTest extends TestCase
     }
 
     #[DataProvider('httpVerbProvider')]
-    public function test_helper_accepts_all_http_verbs(string $verb): void
+    public function testHelperAcceptsAllHttpVerbs(string $verb): void
     {
         $response = new Response($verb);
 
@@ -37,23 +37,23 @@ final class HelperTest extends TestCase
         $this->assertSame($verb, subrequest($verb, '/', [])->getContent());
     }
 
-    public function test_helper_accepts_collection(): void
+    public function testHelperAcceptsCollection(): void
     {
         $this->assertInstanceOf(JsonResponse::class, subrequest('POST', '/', collect(['hello' => 'world'])));
     }
 
-    public function test_helper_returns_response(): void
+    public function testHelperReturnsResponse(): void
     {
         $this->assertInstanceOf(Response::class, subrequest(HttpVerb::GET, '/', []));
     }
 
-    public function test_helper_throws_exception_with_invalid_data(): void
+    public function testHelperThrowsExceptionWithInvalidData(): void
     {
         $this->expectException(TypeError::class);
         subrequest('POST', '/', 'foo=bar');
     }
 
-    public function test_helper_throws_exception_with_invalid_verb(): void
+    public function testHelperThrowsExceptionWithInvalidVerb(): void
     {
         $this->expectException(InvalidArgumentException::class);
         subrequest('FOOBAR', '/', []);

@@ -6,7 +6,7 @@ namespace Tests;
 
 final class RespondTest extends TestCase
 {
-    public function test_middleware_is_still_applied(): void
+    public function testMiddlewareIsStillApplied(): void
     {
 
         $testResponse = $this->get('test');

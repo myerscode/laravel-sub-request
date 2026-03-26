@@ -23,7 +23,7 @@ final class DispatcherTest extends TestCase
     }
 
     #[DataProvider('httpVerbProvider')]
-    public function test_shortcut_calls_only_accept_valid_verbs(string $verb): void
+    public function testShortcutCallsOnlyAcceptValidVerbs(string $verb): void
     {
         $this->mock(Dispatcher::class)
             ->shouldReceive('dispatch')
