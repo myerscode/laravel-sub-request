@@ -11,6 +11,7 @@ use Myerscode\Laravel\SubRequest\Dispatcher;
 use Myerscode\Laravel\SubRequest\HttpVerb;
 use Myerscode\Laravel\SubRequest\SubRequestProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
+use Symfony\Component\HttpFoundation\Response;
 use Tests\Support\TestMiddleware;
 
 class TestCase extends Orchestra
@@ -19,16 +20,16 @@ class TestCase extends Orchestra
     {
         parent::setUp();
 
-        Route::get('/', fn (Request $request) => 'Hello World');
+        Route::get('/', fn (Request $request): string => 'Hello World');
 
-        Route::post('/', fn (Request $request) => $request->request->all());
+        Route::post('/', fn (Request $request): array => $request->request->all());
 
-        Route::get('test', fn (Request $request) => subrequest('GET', 'apply-middleware', ['hello' => 'world']));
+        Route::get('test', fn (Request $request): Response => subrequest('GET', 'apply-middleware', ['hello' => 'world']));
 
         Route::get('apply-middleware', fn (Request $request) => response()->json($request->query->all()))->middleware(TestMiddleware::class);
 
         collect(HttpVerb::METHODS)->each(function (string $httpVerb): void {
-            Route::$httpVerb('/verb/' . $httpVerb, fn (Request $request) => $httpVerb);
+            Route::$httpVerb('/verb/' . $httpVerb, fn (Request $request): string => $httpVerb);
         });
     }
 

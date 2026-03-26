@@ -14,7 +14,7 @@ class SubRequestProvider extends ServiceProvider
     #[Override]
     public function register(): void
     {
-        $this->app->bind(Dispatcher::class, fn ($app) => new Dispatcher($app->make(Router::class), $app->make(Request::class)));
+        $this->app->bind(Dispatcher::class, fn ($app): Dispatcher => new Dispatcher($app->make(Router::class), $app->make(Request::class)));
 
         $this->app->alias(Dispatcher::class, 'SubRequest');
     }

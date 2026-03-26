@@ -39,7 +39,7 @@ final class HelperTest extends TestCase
             ->shouldReceive('dispatch')
             ->andReturn($response);
 
-        $this->assertEquals($verb, subrequest($verb, '/', [])->getContent());
+        $this->assertSame($verb, subrequest($verb, '/', [])->getContent());
     }
 
     public function test_helper_accepts_collection(): void

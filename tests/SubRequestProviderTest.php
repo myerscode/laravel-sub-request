@@ -11,9 +11,9 @@ final class SubRequestProviderTest extends TestCase
 {
     public function test_provides_returns_dispatcher_class(): void
     {
-        $provider = new SubRequestProvider($this->app);
+        $subRequestProvider = new SubRequestProvider($this->app);
 
-        $this->assertSame([Dispatcher::class], $provider->provides());
+        $this->assertSame([Dispatcher::class], $subRequestProvider->provides());
     }
 
     public function test_dispatcher_is_bound_in_container(): void
