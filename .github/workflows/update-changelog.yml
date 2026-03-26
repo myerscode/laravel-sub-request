@@ -26,7 +26,7 @@ jobs:
       - name: Get previous tag
         id: previous
         run: |
-          PREVIOUS=$(git tag --sort=-v:refname | grep -E '^[0-9]{4}\.' | grep -v "^${{ github.event.inputs.version }}$" | head -1)
+          PREVIOUS=$(git tag --sort=-v:refname | grep -E '^[0-9]+\.[0-9]+\.[0-9]+$' | grep -v "^${{ github.event.inputs.version }}$" | head -1)
           echo "tag=$PREVIOUS" >> "$GITHUB_OUTPUT"
 
       - name: Generate changelog
