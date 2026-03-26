@@ -10,6 +10,9 @@
             "import_functions": true
         },
         "no_unused_imports": true,
+        "php_unit_method_casing": {
+            "case": "camel_case"
+        },
         "ordered_class_elements": {
             "order": [
                 "use_trait",
