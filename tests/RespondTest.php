@@ -15,7 +15,7 @@ final class RespondTest extends TestCase
 
         $this->assertEquals(
             json_encode(json_decode($testResponse->getContent())),
-            json_encode(['message' => 'Access denied'])
+            json_encode(['message' => 'Access denied']),
         );
     }
 }

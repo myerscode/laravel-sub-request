@@ -33,13 +33,13 @@ class TestCase extends Orchestra
         });
     }
 
-    protected function getPackageProviders($app)
-    {
-        return [SubRequestProvider::class];
-    }
-
     public function getDispatcher(): Dispatcher
     {
         return new Dispatcher($this->app->make(Router::class), $this->app->make(Request::class));
+    }
+
+    protected function getPackageProviders($app)
+    {
+        return [SubRequestProvider::class];
     }
 }
