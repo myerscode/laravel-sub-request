@@ -2,17 +2,18 @@
 
 A helper and facade for making internal sub requests to your application API.
 
-[![Tests](https://github.com/myerscode/laravel-sub-request/actions/workflows/tests.yml/badge.svg)](https://github.com/myerscode/laravel-sub-request/actions/workflows/tests.yml)
-[![Code Coverage](https://github.com/myerscode/laravel-sub-request/actions/workflows/codecov.yml/badge.svg)](https://github.com/myerscode/laravel-sub-request/actions/workflows/codecov.yml)
 [![Latest Stable Version](https://poser.pugx.org/myerscode/laravel-sub-request/v/stable)](https://packagist.org/packages/myerscode/laravel-sub-request)
 [![Total Downloads](https://poser.pugx.org/myerscode/laravel-sub-request/downloads)](https://packagist.org/packages/myerscode/laravel-sub-request)
-[![License](https://poser.pugx.org/myerscode/laravel-sub-request/license)](https://packagist.org/packages/myerscode/laravel-sub-request)
+[![PHP Version Require](http://poser.pugx.org/myerscode/laravel-sub-request/require/php)](https://packagist.org/packages/myerscode/laravel-sub-request)
+[![License](https://poser.pugx.org/myerscode/laravel-sub-request/license)](https://github.com/myerscode/laravel-sub-request/blob/main/LICENSE)
+[![Tests](https://github.com/myerscode/laravel-sub-request/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/myerscode/laravel-sub-request/actions/workflows/tests.yml)
+[![codecov](https://codecov.io/gh/myerscode/laravel-sub-request/graph/badge.svg)](https://codecov.io/gh/myerscode/laravel-sub-request)
 
 By sending a sub request within the application, you can consume your application's API without sending separate, slower HTTP requests.
 
 ## Requirements
 
-- PHP 8.4+
+- PHP 8.3+
 - Laravel 13.x
 
 ## Install
