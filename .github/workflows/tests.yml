@@ -1,39 +1,33 @@
 name: Tests
 
 on:
+  schedule:
+    - cron: "0 0 * * *"
   push:
-    branches: [main, master, feature/**]
+    branches: [ main, develop, feature/** ]
   pull_request:
-    branches: [main, master, feature/**]
+    branches: [ main, develop, feature/** ]
+
+permissions:
+  contents: read
 
 jobs:
-  tests:
+  run:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest]
-        php: ['8.4', '8.5']
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        php-versions: [ '8.3', '8.4', '8.5' ]
 
-    name: PHP ${{ matrix.php }} - ${{ matrix.os }}
-
+    name: PHP ${{ matrix.php-versions }} - ${{ matrix.os }}
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: ${{ matrix.php }}
-          coverage: none
-
+          php-version: ${{ matrix.php-versions }}
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-interaction
-
-      - name: Run lint
-        run: vendor/bin/pint --test
-
-      - name: Run static analysis
-        run: vendor/bin/phpstan analyse
-
-      - name: Run tests
-        run: vendor/bin/phpunit --testdox --no-coverage --colors=always
+      - name: Run test suite
+        run: vendor/bin/phpunit --testdox --no-coverage

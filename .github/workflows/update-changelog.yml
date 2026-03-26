@@ -1,34 +1,47 @@
 name: Update Changelog
 
 on:
-  release:
-    types: [created]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version to regenerate changelog for'
+        required: true
+        type: string
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   update:
     runs-on: ubuntu-latest
-
-    name: Update Changelog
-
+    permissions:
+      contents: write
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v6
         with:
-          ref: ${{ github.event.release.target_commitish }}
+          ref: main
           fetch-depth: 0
 
-      - name: Update Changelog
-        uses: stefanzweifel/changelog-updater-action@v1
+      - name: Get previous tag
+        id: previous
+        run: |
+          PREVIOUS=$(git tag --sort=-v:refname | grep -E '^[0-9]{4}\.' | grep -v "^${{ github.event.inputs.version }}$" | head -1)
+          echo "tag=$PREVIOUS" >> "$GITHUB_OUTPUT"
+
+      - name: Generate changelog
+        uses: requarks/changelog-action@v1
         with:
-          latest-version: ${{ github.event.release.tag_name }}
-          release-notes: ${{ github.event.release.body }}
+          token: ${{ github.token }}
+          fromTag: ${{ github.event.inputs.version }}
+          toTag: ${{ steps.previous.outputs.tag }}
+          excludeTypes: build,docs,other,style,ci,chore
+          useGitmojis: false
+          writeToFile: true
 
       - name: Commit updated CHANGELOG
         uses: stefanzweifel/git-auto-commit-action@v7
         with:
-          branch: ${{ github.event.release.target_commitish }}
-          commit_message: 'docs: update CHANGELOG for ${{ github.event.release.tag_name }}'
+          branch: main
+          commit_message: "docs: update CHANGELOG for ${{ github.event.inputs.version }}"
           file_pattern: CHANGELOG.md
