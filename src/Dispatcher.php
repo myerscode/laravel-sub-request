@@ -10,7 +10,9 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Dispatcher
 {
-    public function __construct(private readonly Router $router, private readonly Request $request) {}
+    public function __construct(private readonly Router $router, private readonly Request $request)
+    {
+    }
 
     /**
      * Shortcut for sending a DELETE sub request.

@@ -1,18 +1,12 @@
 {
-    "preset": "laravel",
+    "preset": "psr12",
     "rules": {
-        "concat_space": {
-            "spacing": "one"
-        },
         "global_namespace_import": {
             "import_classes": true,
             "import_constants": true,
             "import_functions": true
         },
         "no_unused_imports": true,
-        "php_unit_method_casing": {
-            "case": "camel_case"
-        },
         "ordered_class_elements": {
             "order": [
                 "use_trait",
@@ -43,10 +37,7 @@
             ],
             "sort_algorithm": "alpha"
         },
-        "ordered_imports": {
-            "sort_algorithm": "alpha"
-        },
-        "single_trait_insert_per_statement": true,
+        "single_quote": true,
         "trailing_comma_in_multiline": {
             "elements": ["arrays", "arguments", "parameters"]
         }
