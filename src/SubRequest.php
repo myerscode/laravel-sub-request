@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Facade;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @method static Response dispatch(string $method, string $url, array<string, mixed> $input = [])
+ * @method static Response dispatch(string $method, string $url, array<string, mixed> $input = [], array<string, string> $headers = [], array<string, string> $cookies = [])
  *
  * @see Dispatcher
  */

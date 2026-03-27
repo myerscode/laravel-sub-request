@@ -12,6 +12,7 @@ use Myerscode\Laravel\SubRequest\HttpVerb;
 use Myerscode\Laravel\SubRequest\SubRequestProvider;
 use Orchestra\Testbench\TestCase as Orchestra;
 use Symfony\Component\HttpFoundation\Response;
+use Tests\Support\AddHeaderMiddleware;
 use Tests\Support\TestMiddleware;
 
 class TestCase extends Orchestra
@@ -27,6 +28,20 @@ class TestCase extends Orchestra
         Route::get('test', fn (Request $request): Response => subrequest('GET', 'apply-middleware', ['hello' => 'world']));
 
         Route::get('apply-middleware', fn (Request $request) => response()->json($request->query->all()))->middleware(TestMiddleware::class);
+
+        Route::get('dual-middleware', fn (Request $request) => response()->json($request->query->all()))->middleware([TestMiddleware::class, AddHeaderMiddleware::class]);
+
+        Route::any('echo-headers', fn (Request $request) => response()->json([
+            'accept' => $request->header('Accept'),
+            'x-custom' => $request->header('X-Custom'),
+            'authorization' => $request->header('Authorization'),
+        ]));
+
+        Route::any('echo-cookies', fn (Request $request) => response()->json([
+            'session_id' => $request->cookie('session_id'),
+            'token' => $request->cookie('token'),
+            'preference' => $request->cookie('preference'),
+        ]));
 
         collect(HttpVerb::METHODS)->each(function (string $httpVerb): void {
             Route::$httpVerb('/verb/' . $httpVerb, fn (Request $request): string => $httpVerb);

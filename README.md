@@ -69,6 +69,72 @@ $dispatcher->delete('/url', $data);
 $dispatcher->options('/url', $data);
 ```
 
+### Custom Headers
+
+All methods accept an optional `$headers` array as the last parameter, allowing you to set custom headers on the sub request:
+
+```php
+// Set Authorization and Accept headers
+$dispatcher->get('/api/users', [], [
+    'Authorization' => 'Bearer my-token',
+    'Accept' => 'application/json',
+]);
+
+// Works with the facade and helper too
+SubRequest::dispatch('GET', '/api/users', [], ['Authorization' => 'Bearer my-token']);
+subrequest('GET', '/api/users', [], ['Authorization' => 'Bearer my-token']);
+```
+
+Headers are applied to the sub request and automatically restored to their original values after dispatch.
+
+### Cookies
+
+All methods accept an optional `$cookies` array as the last parameter, allowing you to forward or set cookies on the sub request:
+
+```php
+// Set cookies on the sub request
+$dispatcher->get('/api/profile', [], [], [
+    'session_id' => 'abc123',
+    'token' => 'my-auth-token',
+]);
+
+// Combine headers and cookies
+$dispatcher->post('/api/data', ['key' => 'value'], [
+    'Accept' => 'application/json',
+], [
+    'session_id' => 'abc123',
+]);
+
+// Works with the facade and helper too
+SubRequest::dispatch('GET', '/api/profile', [], [], ['session_id' => 'abc123']);
+subrequest('GET', '/api/profile', [], [], ['session_id' => 'abc123']);
+```
+
+Cookies are applied to the sub request and automatically restored to their original values after dispatch.
+
+### Middleware Control
+
+Use `withoutMiddleware()` to skip specific middleware on a sub request:
+
+```php
+use App\Http\Middleware\Authenticate;
+use App\Http\Middleware\RateLimiter;
+
+// Skip a single middleware
+$dispatcher->withoutMiddleware(Authenticate::class)->get('/api/internal');
+
+// Skip multiple middleware by chaining
+$dispatcher
+    ->withoutMiddleware(Authenticate::class)
+    ->withoutMiddleware(RateLimiter::class)
+    ->post('/api/internal', $data);
+
+// Or pass an array
+$dispatcher->withoutMiddleware([Authenticate::class, RateLimiter::class])->get('/api/internal');
+```
+
+The middleware exclusion is automatically reset after each dispatch, so subsequent calls will run all middleware as normal.
+
 ## License
 
 MIT
