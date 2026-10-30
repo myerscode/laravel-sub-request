@@ -6,7 +6,7 @@ A helper and facade for making internal sub requests to your application API.
 [![Total Downloads](https://poser.pugx.org/myerscode/laravel-sub-request/downloads)](https://packagist.org/packages/myerscode/laravel-sub-request)
 [![PHP Version Require](http://poser.pugx.org/myerscode/laravel-sub-request/require/php)](https://packagist.org/packages/myerscode/laravel-sub-request)
 [![License](https://poser.pugx.org/myerscode/laravel-sub-request/license)](https://github.com/myerscode/laravel-sub-request/blob/main/LICENSE)
-[![Tests](https://github.com/myerscode/laravel-sub-request/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/myerscode/laravel-sub-request/actions/workflows/tests.yml)
+[![Tests](https://github.com/myerscode/laravel-sub-request/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/myerscode/laravel-sub-request/actions/workflows/tests.yml)
 [![codecov](https://codecov.io/gh/myerscode/laravel-sub-request/graph/badge.svg)](https://codecov.io/gh/myerscode/laravel-sub-request)
 
 By sending a sub request within the application, you can consume your application's API without sending separate, slower HTTP requests.
