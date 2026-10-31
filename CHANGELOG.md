@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [13.0.1] - 2026-10-31
+### New Features
+- [`c081e21`](https://github.com/myerscode/laravel-sub-request/commit/c081e21fae85908e37b0aafe623f7fb6c6c27a38) - **dispatcher**: add headers, cookies, and middleware control *(commit by [@oniice](https://github.com/oniice))*
+- [`4fb9426`](https://github.com/myerscode/laravel-sub-request/commit/4fb9426d3cca4bc4d6d8dbaea8b972270da77718) - **ci**: add shared dependabot auto-merge *(PR [#9](https://github.com/myerscode/laravel-sub-request/pull/9) by [@oniice](https://github.com/oniice))*
+
+
 ## [13.0.0] - 2026-03-26
 ### New Features
 - [`74e8001`](https://github.com/myerscode/laravel-sub-request/commit/74e8001ee378a617c7cd9013a324e4ecd8e5b30b) - **deps**: target PHP 8.4 and Laravel 13 *(commit by [@oniice](https://github.com/oniice))*
@@ -19,3 +25,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [`100d4d4`](https://github.com/myerscode/laravel-sub-request/commit/100d4d46e8577f75ce13949a754ae61b4a0cd376) - rename methods to camelCase *(commit by [@oniice](https://github.com/oniice))*
 
 [13.0.0]: https://github.com/myerscode/laravel-sub-request/compare/8.0.1...13.0.0
+[13.0.1]: https://github.com/myerscode/laravel-sub-request/compare/13.0.0...13.0.1
